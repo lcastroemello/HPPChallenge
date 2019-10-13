@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <h1 className="App-header">
-          Willkommen in unseren Tilgungsplanrechner
+          Willkommen zu unseren Tilgungsplanrechner
         </h1>
         <div>
           <label htmlFor="darlehensbetrage">Darlehensbetrage</label>
@@ -25,20 +25,30 @@ function App() {
             type="numbers"
             onChange={e => setDb(e.target.value)}
           />
-          <label htmlFor="sollzinse">Sollzinse</label>
+          €
+          <br />
+          <label htmlFor="sollzinse">Sollzinse(in Prozent)</label>
           <input
             className="sollzinse"
             id="sollzinse"
             type="numbers"
+            min="1"
+            max="100"
             onChange={e => setSz(e.target.value)}
-          />
-          <label htmlFor="tilgung">Anfänglichen Tilgung</label>
+          />{" "}
+          %
+          <br />
+          <label htmlFor="tilgung">Anfänglichen Tilgung (in Prozent)</label>
           <input
             className="tilgung"
             id="tilgung"
             type="numbers"
+            min="1"
+            max="100"
             onChange={e => setTg(e.target.value)}
           />
+          %
+          <br />
           <label htmlFor="zinsbuildung">Zinsbuildung</label>
           <input
             className="zinsbuildung"
@@ -47,6 +57,7 @@ function App() {
             step="1"
             onChange={e => setZb(e.target.value)}
           />
+          Jahre
           <br />
           <button
             className="button"

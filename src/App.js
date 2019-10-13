@@ -1,47 +1,45 @@
-import React, { useState, useEffect } from "react";
-import { Route, BrowserRouter, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Route, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Results from "./results";
 
 function App() {
-  const [formInfo, setFormInfo] = useState(1);
+  const [formInfo, setFormInfo] = useState();
   const [resultsOpen, setResultsOpen] = useState(false);
   const [db, setDb] = useState();
   const [sz, setSz] = useState();
   const [tg, setTg] = useState();
   const [zb, setZb] = useState();
 
-  if (formInfo) {
-    console.log(formInfo);
-  }
-
   return (
     <BrowserRouter>
       <div className="App">
-        <h1 className="App-header">Willkommen in unseren Tilgungsplan</h1>
+        <h1 className="App-header">
+          Willkommen in unseren Tilgungsplanrechner
+        </h1>
         <div>
-          <label for="darlehensbetrage">Darlehensbetrage</label>
+          <label htmlFor="darlehensbetrage">Darlehensbetrage</label>
           <input
             className="darlehensbetrage"
             id="darlehensbetrage"
             type="numbers"
             onChange={e => setDb(e.target.value)}
           />
-          <label for="sollzinse">Sollzinse</label>
+          <label htmlFor="sollzinse">Sollzinse</label>
           <input
             className="sollzinse"
             id="sollzinse"
             type="numbers"
             onChange={e => setSz(e.target.value)}
           />
-          <label for="tilgung">Tilgung</label>
+          <label htmlFor="tilgung">Anfänglichen Tilgung</label>
           <input
             className="tilgung"
             id="tilgung"
             type="numbers"
             onChange={e => setTg(e.target.value)}
           />
-          <label for="zinsbuildung">Zinsbuildung</label>
+          <label htmlFor="zinsbuildung">Zinsbuildung</label>
           <input
             className="zinsbuildung"
             id="zinsbuildung"
@@ -53,12 +51,7 @@ function App() {
           <button
             className="button"
             onClick={e => {
-              setFormInfo({
-                darlehensbetrage: db,
-                sollzinse: sz,
-                tilgung: tg,
-                zinsbuildung: zb
-              });
+              setFormInfo([db, sz, tg, zb]);
               setResultsOpen(true);
             }}
           >

@@ -35,7 +35,7 @@ function App() {
             min="1"
             max="100"
             onChange={e => setSz(e.target.value)}
-          />{" "}
+          />
           %
           <br />
           <label htmlFor="tilgung">Anfänglichen Tilgung (in Prozent)</label>
@@ -72,8 +72,7 @@ function App() {
         {resultsOpen && (
           <div className="resultsTable">
             <Route
-              exact
-              path="/deinTilgungsplan"
+              path="/"
               render={() => (
                 <div>
                   <Results info={formInfo} />

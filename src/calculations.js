@@ -1,8 +1,3 @@
-function currency(n) {
-  n = parseFloat(n);
-  return isNaN(n) ? false : n.toFixed(2);
-}
-
 export function datum(years) {
   let datumList = [];
   let nowMonth = new Date().getMonth();
@@ -36,9 +31,9 @@ export function datum(years) {
 }
 
 export function rates(darlehens, years, fixRate) {
-  let rateList = [currency(-darlehens)];
+  let rateList = [Number(-darlehens)];
   for (let i = 0; i < years * 12; i++) {
-    rateList.push(currency(fixRate));
+    rateList.push(Number(fixRate));
   }
   return rateList;
 }
@@ -48,13 +43,16 @@ export function rzta(darlehens, tilgung, sollzinses, fixRate, years) {
     Number(darlehens),
     Math.ceil((darlehens - darlehens * tilgung) * 100) / 100
   ];
-  let zinzenList = [currency(0), currency(darlehens * sollzinses)];
-  let taList = [currency(-darlehens), currency(darlehens * tilgung)];
+  let zinzenList = [
+    Number("0.00"),
+    Number((darlehens * sollzinses).toFixed(2))
+  ];
+  let taList = [Number(-darlehens), Number((darlehens * tilgung).toFixed(2))];
   for (let i = 2; i < years * 12 + 1; i++) {
-    zinzenList.push(currency(restList[i - 1] * sollzinses));
-    taList.push(currency(fixRate - zinzenList[i]));
+    zinzenList.push(Number((restList[i - 1] * sollzinses).toFixed(2)));
+    taList.push(Number((fixRate - zinzenList[i]).toFixed(2)));
     restList.push(
-      currency(Math.ceil((restList[i - 1] - taList[i]) * 100) / 100)
+      Number(Math.ceil((restList[i - 1] - taList[i]) * 100) / 100).toFixed(2)
     );
   }
   return { restList: restList, zinzenList: zinzenList, taList: taList };
@@ -64,8 +62,8 @@ export function footer(darlehens, rateList, rztaList) {
   const add = (a, b) => a + b;
   let footer = {};
   footer.rest = rztaList.restList[rztaList.restList.length - 1];
-  footer.zinzen = currency(rztaList.zinzenList.reduce(add));
-  footer.ta = currency(rztaList.taList.reduce(add) + Number(darlehens));
-  footer.rate = currency(rateList.reduce(add) + Number(darlehens));
+  footer.zinzen = rztaList.zinzenList.reduce(add).toFixed(2);
+  footer.ta = (rztaList.taList.reduce(add) + Number(darlehens)).toFixed(2);
+  footer.rate = (rateList.reduce(add) + Number(darlehens)).toFixed(2);
   return footer;
 }

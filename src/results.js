@@ -3,6 +3,7 @@ import { datum, rates, rzta } from "./calculations";
 
 export default function Results(props) {
   const [tableData, setTableData] = useState();
+  const [reduced, setReduced] = useState();
 
   const db = props.info[0];
   const sz = props.info[1] / 100 / 12;
@@ -14,10 +15,10 @@ export default function Results(props) {
     let datumList = datum(zb);
     let ratesList = rates(db, zb, rate);
     let rztaList = rzta(db, tg, sz, rate, zb);
-    formTable(datumList, ratesList, rztaList);
+    formData(datumList, ratesList, rztaList);
   }, [props]);
 
-  let formTable = (dates, rateList, rztas) => {
+  let formData = (dates, rateList, rztas) => {
     let table = [];
     for (let i = 0; i <= zb * 12; i++) {
       table.push({
@@ -29,9 +30,15 @@ export default function Results(props) {
       });
     }
     setTableData(table);
+    const add = (a, b) => a + b;
+    let footer = {};
+    footer.rest = rztas.restList[rztas.restList.length - 1];
+    footer.zinzen = rztas.zinzenList.reduce(add).toFixed(2);
+    footer.ta = (rztas.taList.reduce(add) + Number(db)).toFixed(2);
+    footer.rate = (rateList.reduce(add) + Number(db)).toFixed(2);
+    setReduced(footer);
   };
 
-  if (tableData) console.log(tableData[tableData.length - 1]);
   return (
     <div>
       <table>
@@ -59,6 +66,17 @@ export default function Results(props) {
               </tbody>
             );
           })}
+        {reduced && (
+          <tfoot>
+            <tr>
+              <th scope="row">Zinsbindugsende</th>
+              <td> -{reduced.rest}€</td>
+              <td> {reduced.zinzen}€</td>
+              <td> {reduced.ta}€</td>
+              <td> {reduced.rate}€</td>
+            </tr>
+          </tfoot>
+        )}
       </table>
     </div>
   );

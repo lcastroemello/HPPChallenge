@@ -24,20 +24,17 @@ export function datum(years) {
       datumList.push(months[l] + (nowYear + i));
     }
   }
-  for (let i = 0; i <= nowMonth + 1; i++) {
+  for (let i = 0; i <= nowMonth; i++) {
     datumList.push(months[i] + (Number(nowYear) + Number(years)));
   }
   return datumList;
 }
-
-const add = (a, b) => a + b;
 
 export function rates(darlehens, years, fixRate) {
   let rateList = [Number(-darlehens)];
   for (let i = 0; i < years * 12; i++) {
     rateList.push(Number(fixRate));
   }
-  rateList.push((rateList.reduce(add) + Number(darlehens)).toFixed(2));
   return rateList;
 }
 
@@ -58,8 +55,5 @@ export function rzta(darlehens, tilgung, sollzinses, fixRate, years) {
       Number(Math.ceil((restList[i - 1] - taList[i]) * 100) / 100).toFixed(2)
     );
   }
-  restList.push(restList[restList.length - 1]);
-  zinzenList.push(zinzenList.reduce(add).toFixed(2));
-  taList.push((taList.reduce(add) + Number(darlehens)).toFixed(2));
   return { restList: restList, zinzenList: zinzenList, taList: taList };
 }

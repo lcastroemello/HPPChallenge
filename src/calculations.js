@@ -57,3 +57,13 @@ export function rzta(darlehens, tilgung, sollzinses, fixRate, years) {
   }
   return { restList: restList, zinzenList: zinzenList, taList: taList };
 }
+
+export function footer(darlehens, rateList, rztaList) {
+  const add = (a, b) => a + b;
+  let footer = {};
+  footer.rest = rztaList.restList[rztaList.restList.length - 1];
+  footer.zinzen = rztaList.zinzenList.reduce(add).toFixed(2);
+  footer.ta = (rztaList.taList.reduce(add) + Number(darlehens)).toFixed(2);
+  footer.rate = (rateList.reduce(add) + Number(darlehens)).toFixed(2);
+  return footer;
+}

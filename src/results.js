@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { datum, rates, rzta } from "./calculations";
+import { datum, rates, rzta, footer } from "./calculations";
 
 export default function Results(props) {
   const [tableData, setTableData] = useState();
@@ -16,6 +16,7 @@ export default function Results(props) {
     let ratesList = rates(db, zb, rate);
     let rztaList = rzta(db, tg, sz, rate, zb);
     formData(datumList, ratesList, rztaList);
+    setReduced(footer(db, ratesList, rztaList));
   }, [props]);
 
   let formData = (dates, rateList, rztas) => {
@@ -30,13 +31,6 @@ export default function Results(props) {
       });
     }
     setTableData(table);
-    const add = (a, b) => a + b;
-    let footer = {};
-    footer.rest = rztas.restList[rztas.restList.length - 1];
-    footer.zinzen = rztas.zinzenList.reduce(add).toFixed(2);
-    footer.ta = (rztas.taList.reduce(add) + Number(db)).toFixed(2);
-    footer.rate = (rateList.reduce(add) + Number(db)).toFixed(2);
-    setReduced(footer);
   };
 
   return (

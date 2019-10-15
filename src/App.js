@@ -17,8 +17,12 @@ function App() {
         <h1 className="App-header">
           Willkommen zu unseren Tilgungsplanrechner
         </h1>
+        <p>
+          * Bitte verwenden Sie einen Punkt als Dezimaltrennzeichen für Zahlen
+          (z.B. 12350.40 oder 2.5 )
+        </p>
         <div>
-          <label htmlFor="darlehensbetrage">Darlehensbetrage</label>
+          <label htmlFor="darlehensbetrage">Darlehensbetrag * </label>
           <input
             className="darlehensbetrage"
             id="darlehensbetrage"
@@ -27,7 +31,7 @@ function App() {
           />
           €
           <br />
-          <label htmlFor="sollzinse">Sollzinse(in Prozent)</label>
+          <label htmlFor="sollzinse">Sollzins(in Prozent) * </label>
           <input
             className="sollzinse"
             id="sollzinse"
@@ -38,7 +42,7 @@ function App() {
           />
           %
           <br />
-          <label htmlFor="tilgung">Anfänglichen Tilgung (in Prozent)</label>
+          <label htmlFor="tilgung">Anfängliche Tilgung (in Prozent) * </label>
           <input
             className="tilgung"
             id="tilgung"
@@ -47,9 +51,8 @@ function App() {
             max="100"
             onChange={e => setTg(e.target.value)}
           />
-          %
-          <br />
-          <label htmlFor="zinsbuildung">Zinsbuildung</label>
+          % <br />
+          <label htmlFor="zinsbuildung">Zinsbindung</label>
           <input
             className="zinsbuildung"
             id="zinsbuildung"
@@ -67,7 +70,7 @@ function App() {
               setResultsOpen(true);
             }}
           >
-            Meiner Tilgungsplan Rechnen
+            Meinen Tilgungsplan berechnen
           </button>
         </div>
         {resultsOpen && (

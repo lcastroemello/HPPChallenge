@@ -30,6 +30,12 @@
   font-weight: bold;
 }
 
+p {
+  font-size: 0.5rem;
+  margin: 0;
+  padding: 0.1rem;
+}
+
 caption {
   padding: 1rem 0rem;
   color: #3f87a6;
